@@ -15,7 +15,9 @@ defmodule DBListener.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: DBListener.PubSub},
       # Start the Endpoint (http/https)
-      DBListenerWeb.Endpoint
+      DBListenerWeb.Endpoint,
+      DBListener.Listener
+      # {Registry, keys: :unique, name: DBListener.Registry}
       # Start a worker by calling: DBListener.Worker.start_link(arg)
       # {DBListener.Worker, arg}
     ]
