@@ -7,6 +7,12 @@ defmodule DBListener.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = [
+      example: [
+        strategy: Cluster.Strategy.Gossip
+      ]
+    ]
+
     children = [
       # Start the Telemetry supervisor
       DBListenerWeb.Telemetry,
@@ -16,7 +22,8 @@ defmodule DBListener.Application do
       {Phoenix.PubSub, name: DBListener.PubSub},
       # Start the Endpoint (http/https)
       DBListenerWeb.Endpoint,
-      DBListener.Listener
+      DBListener.Listener,
+      {Cluster.Supervisor, [topologies, [name: DBListener.ClusterSupervisor]]}
       # {Registry, keys: :unique, name: DBListener.Registry}
       # Start a worker by calling: DBListener.Worker.start_link(arg)
       # {DBListener.Worker, arg}

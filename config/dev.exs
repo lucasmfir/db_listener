@@ -61,3 +61,16 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :libcluster,
+  topologies: [
+    gossip_example: [
+      strategy: Elixir.Cluster.Strategy.Gossip,
+      config: [
+        port: 45892,
+        if_addr: "0.0.0.0",
+        multicast_addr: "230.1.1.251",
+        multicast_ttl: 1
+      ]
+    ]
+  ]
